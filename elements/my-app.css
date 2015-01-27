@@ -20,6 +20,8 @@ core-toolbar#mainheader {
   core-toolbar#mainheader a {
     display: inline-block;
     margin: 0 4px; }
+  core-toolbar#mainheader .top {
+    margin-left: auto; }
 
 core-scroll-header-panel::shadow #headerBg {
   background-image: url(/images/background/nz_national_park.jpg); }
