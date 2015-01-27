@@ -1,0 +1,83 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/core-scroll-header-panel/core-scroll-header-panel.html">
+<link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../bower_components/paper-ripple/paper-ripple.html">
+<link rel="import" href="my-self.html">
+<link rel="import" href="my-font-awesome.html">
+<link rel="import" href="my-popup-card.html">
+<link rel="import" href="my-timeline.html">
+
+<polymer-element name="my-app">
+  <template>
+    <link href="/elements/my-app.css" rel="stylesheet">
+    <style shim-shadowdom>
+      :host /deep/ h1, h2, h3, h4 {
+        font-family: "Dosis", arial, tahoma, verdana;
+        font-weight: 500;
+        font-size: 3.5rem;
+      }
+      :host /deep/ section[page] {
+        min-height: 100vh;
+      }
+    </style>
+
+    <core-scroll-header-panel id="headerPanel" condenses="true" keepCondensedHeader="true" on-core-header-transform="{{onHeaderTransform}}" on-scroll="{{onScroll}}">
+      <core-toolbar id="mainheader" class="tall layout">
+        <div flex></div>
+        <div class="top">
+          <!-- <a href="//twitter.com/hyunjo_on"><my-font-awesome attr="fa-twitter"></my-font-awesome></a> -->
+          <a href="//medium.com/@grunty"><my-font-awesome attr="fa-medium"></my-font-awesome></a>
+          <a href="//github.com/pukapukan"><my-font-awesome attr="fa-github"></my-font-awesome></a>
+          <a href="//www.linkedin.com/in/jasonhyunjoonpark"><my-font-awesome attr="fa-linkedin"></my-font-awesome></a>
+        </div>
+
+        <div class="indent"></div>
+        <div class="middle indent">few things about</div>
+        <h1 id="title" class="bottom title indent">hyunj<span>o_O</span>n</h1>
+      </core-toolbar>
+
+      <section class="about section">
+        <my-self></my-self>
+      </section>
+
+      <section class="open-source section dark">
+        <h2>Open source projects</h2>
+        <!-- reference - chips to cards  -->
+        <!-- source: https://github.com/Polymer/core-animated-pages/blob/master/demos/music.html -->
+        <!-- demo: https://www.polymer-project.org/components/core-animated-pages/demos/music.html -->
+        <my-popup-card></my-popup-card>
+      </section>
+
+      <section class="career section">
+        <h2>Career journey</h2>
+        <my-timeline></my-timeline>
+      </section>
+
+      <section class="academic section dark">
+        <h2>Academic achievements</h2>
+      </section>
+    </core-scroll-header-panel>
+  </template>
+  <script>
+  (function () {
+    var titleStyle;
+    var scale;
+    Polymer({
+      ready:function() {
+        titleStyle = this.$.title.style;
+      },
+      onHeaderTransform: function (event, detail, sender) {
+        var m = detail.height - detail.condensedHeight;
+        var newScale = Math.max(0.5, (m - detail.y) / (m / 0.5)  + 0.5);
+        if(scale != newScale) {
+          scale = newScale;
+          titleStyle.transform =
+            titleStyle.webkitTransform =
+            titleStyle.mozTransform =
+            titleStyle.msTransform = 'scale(' + scale + ')';
+        }
+      }
+    });
+  })();
+  </script>
+</polymer-element>

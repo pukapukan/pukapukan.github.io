@@ -1,0 +1,94 @@
+.profile, .myself {
+  display: block;
+  margin-left: auto;
+  margin-right: auto; }
+
+.about.show .myself, .about.show .profile {
+  opacity: 1;
+  -webkit-filter: blur(0px);
+  -moz-filter: blur(0px);
+  -ms-filter: blur(0px);
+  filter: blur(0px);
+  -webkit-transform: translateY(0px);
+  transform: translateY(0px); }
+
+.profile {
+  height: 300px;
+  width: 300px;
+  margin-bottom: 50px;
+  border-radius: 150px;
+  background-image: url('/images/me/profile.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.1;
+  box-shadow: 4px 4px rgba(174, 174, 174, 0.65);
+  -webkit-transform: translateY(-30px);
+  transform: translateY(-30px);
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+  transition-property: "transform, filter";
+  transition-duration: 2s;
+  transition-timing-function: ease-out; }
+  .profile .border {
+    position: relative;
+    left: 5px;
+    top: 5px;
+    width: 284px;
+    height: 284px;
+    border: 4px dashed white;
+    border-radius: 150px; }
+
+.myself {
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 100;
+  line-height: 2em;
+  max-width: 400px;
+  max-width: 50vw;
+  transition-timing-function: ease;
+  transition-property: "filter";
+  transition-duration: 2s;
+  -webkit-filter: blur(10px);
+  -moz-filter: blur(10px);
+  -ms-filter: blur(10px);
+  filter: blur(10px); }
+  .myself:after {
+    content: ' ';
+    display: block;
+    height: 100px; }
+  .myself b {
+    font-weight: 400;
+    font-family: Lobster;
+    font-size: 2rem;
+    text-shadow: 2px 2px rgba(174, 174, 174, 0.65); }
+
+.space {
+  height: 250px;
+  height: calc(50vh - 250px); }
+
+@media only screen and (max-width: 1024px) {
+  .profile {
+    margin-bottom: 30px; } }
+
+@media only screen and (max-width: 480px) {
+  .space {
+    height: 220px; }
+  .profile {
+    width: 225px;
+    height: 225px; }
+    .profile .border {
+      left: 8px;
+      top: 8px;
+      width: 202px;
+      height: 202px; }
+  .myself {
+    font-size: 1.25rem;
+    line-height: 2rem;
+    max-width: 100%;
+    text-align: center; } }
+
+@media screen and (max-height: 1000px) {
+  .space {
+    height: 250px; } }

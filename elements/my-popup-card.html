@@ -1,0 +1,99 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/core-animated-pages/core-animated-pages.html">
+
+<polymer-element name="my-popup-card">
+  <template>
+    <link href="/elements/my-popup-card.css" rel="stylesheet">
+
+    <core-animated-pages selected="{{page}}" transitions="hero-transition" on-core-animated-pages-transition-end="{{complete}}">
+      <section id="chipSection">
+        <div class="chip-container" hero-p on-tap="{{transition}}">
+          <template repeat="{{items as item}}">
+            <div class="chip" hero-id="{{item.project}}" hero?="{{selectedChip === item}}">
+              <div class="chip-cover"><my-font-awesome attr="fa-github fa-3x"></my-font-awesome></div>
+              <div class="chip-top" style="background:{{item.color}};" hero-id="{{item.project}}-art" hero?="{{selectedChip === item}}"></div>
+              <div class="chip-bottom">
+                <div class="chip-header">{{item.project}}</div>
+                <div class="chip-subheader">{{item.description.short}}</div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </section>
+
+      <section id="cardSection">
+        <div class="card" layout vertical hero-id="{{selectedChip.project}}" hero>
+          <div class="card-left" style="background:{{selectedChip.color}};" hero-id="{{selectedChip.project}}-art" hero></div>
+          <div class="card-right" flex>
+            <div class="close-button" on-tap="{{transition}}"><my-font-awesome attr="fa-close fa-3x"></my-font-awesome></div>
+            <div layout horizontal center>
+              <div class="card-icon" style="background:{{selectedChip.color}};"></div>
+              <div flex>
+                <div class="card-header">{{selectedChip.project}}</div>
+                <div class="card-subHeader">{{selectedChip.stacks}}</div>
+              </div>
+            </div>
+            <div class="description">
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </core-animated-pages>
+  </template>
+  <script>
+    Polymer('my-popup-card', {
+      page: 0,
+      items: [
+        {
+          project: 'Crawl2Tweet',
+          language: 'javascript',
+          description: {
+            short: 'Web crawler that tweets',
+            long: 'Crawl2Tweet is a Web crawler + Twitterbot that tweets new articles from web sites.  It can be easily hosted on free tiers of any Paas and MongoDB on cloud.  Followings are Twitter accounts powered by Crawl2Tweet: @InvenLoL, @AndroidPubBot and @TLGREngineering.'
+          },
+          url: 'https://github.com/pukapukan/Crawl2Tweet',
+          color: 'gray',
+        },
+        {
+          project: 'passport-nate',
+          language: 'javascript',
+          description: {
+            short: 'nate/cyworld strategy for passport.js',
+            long: 'Passport is authentication middleware for Node.js.  passport-nate is a Node module that implements Passport strategy for Nate (Cyworld) using OAuth.'
+          },
+          url: 'https://github.com/pukapukan/passport-nate',
+          color: 'black'
+        },
+        {
+          project: 'FBench IDE',
+          language: 'Java',
+          description: {
+            short: 'Graphical interactive IDE built for IEC61499 Function Block'
+          },
+          stacks: ['java', 'functino block'],
+          url: 'http://homepages.engineering.auckland.ac.nz/~vyatkin/fbench/index.html',
+          color: 'gray'
+        },
+        {
+          project: 'Web Fundamentals',
+          language: 'translation',
+          description: {
+            short: 'Translate Google\'s Web Fundamental into Korean'
+          },
+          url: 'https://github.com/google/WebFundamentals',
+          color: 'black'
+        }
+      ],
+      selectedChip: null,
+      transition: function(e, index, el) {
+        if (this.page === 0 && e.target.templateInstance.model.item) {
+          this.selectedChip = e.target.templateInstance.model.item;
+          this.page = 1;
+        } else {
+          this.page = 0;
+        }
+      }
+    });
+  </script>
+</polymer-element>

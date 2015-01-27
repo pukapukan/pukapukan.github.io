@@ -1,0 +1,76 @@
+:host {
+  display: block;
+  height: 100%; }
+
+.section {
+  padding: 20px 68px; }
+  .section.dark {
+    background: black;
+    padding: 20px 68px 70px 68px; }
+    .section.dark h1, .section.dark h2, .section.dark h3, .section.dark h4 {
+      color: white; }
+
+core-scroll-header-panel {
+  height: 100%; }
+
+core-toolbar#mainheader {
+  color: white;
+  fill: white;
+  background-color: transparent; }
+  core-toolbar#mainheader a {
+    display: inline-block;
+    margin: 0 4px; }
+
+core-scroll-header-panel::shadow #headerBg {
+  background-image: url(/images/background/nz_national_park.jpg); }
+
+core-scroll-header-panel::shadow #condensedHeaderBg {
+  background-color: rgba(0, 0, 0, 0.7); }
+
+core-scroll-header-panel::shadow #mainContainer {
+  padding-top: 0px !important; }
+
+.title {
+  font-size: 3rem;
+  vertical-align: middle;
+  will-change: transform;
+  -webkit-transform-origin: left;
+  transform-origin: left; }
+
+.title > span {
+  font-weight: bolder;
+  font-family: Lobster;
+  font-size: 3.5rem;
+  margin: 0 3px;
+  color: #f4db33;
+  transition: all 0.3s ease-out; }
+
+core-toolbar a {
+  color: white; }
+  core-toolbar a:after {
+    content: '';
+    display: block;
+    width: 100%;
+    border: 1px solid white;
+    -webkit-transform: translate(0px, 6px);
+            transform: translate(0px, 6px);
+    opacity: 0;
+    color: #999;
+    transition: -webkit-transform 0.2s ease-out, opacity 0.2s ease-out;
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out; }
+  core-toolbar a:hover:after {
+    -webkit-transform: translate(0px, 0px);
+            transform: translate(0px, 0px);
+    opacity: 1; }
+
+@media only screen and (max-width: 1024px) {
+  core-toolbar .indent {
+    margin-left: 4px !important; }
+  section {
+    padding: 20px 12px 50px 12px !important; } }
+
+@media only screen and (max-width: 480px) {
+  core-toolbar .indent {
+    margin-left: 4px !important; }
+  section {
+    padding: 20px 20px 70px 20px !important; } }

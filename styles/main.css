@@ -1,0 +1,13 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/css?family=Lato|Dosis|Lobster|Roboto:100,400,500);
+body {
+  background: #fafafa;
+  font-family: Lato, "Helvetica Neue", Helvetica, "Nanum Gothic", Arial, sans-serif;
+  color: #333; }
+
+html, body {
+  height: 100%;
+  margin: 0; }
+
+.content {
+  padding: 100px; }
