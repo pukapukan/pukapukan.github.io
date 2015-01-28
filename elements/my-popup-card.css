@@ -24,20 +24,6 @@
   background-color: #fff;
   border: 1px solid white;
   cursor: pointer; }
-  .chip:hover .chip-cover {
-    opacity: 0.7; }
-
-.chip-cover {
-  opacity: 0;
-  transition: 0.5s all ease;
-  width: 200px;
-  position: absolute;
-  left: 50%;
-  margin-left: -100px;
-  text-align: center;
-  top: 10%;
-  font-size: 3rem;
-  color: white; }
 
 .chip-top {
   width: 200px;
@@ -64,6 +50,7 @@
   text-align: start;
   overflow: hidden;
   background: #fff;
+  border: 1px solid white;
   box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
 
 .card-left {
@@ -74,7 +61,10 @@
 .card-right {
   position: relative;
   margin-left: 200px;
-  padding: 24px; }
+  padding: 24px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overflow-wrap: break-word; }
 
 .card-icon {
   border-radius: 50%;
@@ -90,3 +80,9 @@
   top: 24px;
   right: 24px;
   cursor: pointer; }
+
+.gray {
+  background-color: gray; }
+
+.black {
+  background-color: black; }
