@@ -1,1 +1,1 @@
-!function(a){"use strict";a.addEventListener("polymer-ready",function(){console.log("Polymer is ready to rock!")})}(wrap(document));
+!function(a){"use strict";a.addEventListener("polymer-ready",function(){console.log("Polymer is ready to rock!"),window.scroll(0,1)})}(wrap(document));
