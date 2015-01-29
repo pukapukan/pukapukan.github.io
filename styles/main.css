@@ -7,6 +7,21 @@ body {
   body.mobile {
     height: 101%; }
 
+#loader {
+  position: absolute;
+  left: 50%;
+  width: 400px;
+  margin-left: -200px;
+  top: 45%;
+  font-size: 2rem;
+  vertical-align: middle;
+  transition: opacity 0.15s ease; }
+
+.hidden {
+  display: none;
+  visibility: hidden;
+  opacity: 0; }
+
 html, body {
   height: 100%;
   margin: 0; }
