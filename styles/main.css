@@ -2,15 +2,17 @@
 @import url(http://fonts.googleapis.com/css?family=Lato|Dosis|Lobster|Roboto:100,400,500);
 .tetrominos {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   -webkit-transform: translate(-112px, -96px);
           transform: translate(-112px, -96px); }
-  .tetrominos :not(.tetromino) {
-    margin-top: 175px;
-    width: 222px;
-    text-align: center;
-    font-size: 2rem; }
+
+.loader-text {
+  margin: 0 auto;
+  width: 250px;
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 3rem; }
 
 .tetromino {
   width: 96px;
