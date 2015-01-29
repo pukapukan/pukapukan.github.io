@@ -3,14 +3,62 @@
   margin-left: auto;
   margin-right: auto; }
 
-.about.show .myself, .about.show .profile {
-  opacity: 1;
-  -webkit-filter: blur(0px);
-  -moz-filter: blur(0px);
-  -ms-filter: blur(0px);
-  filter: blur(0px);
-  -webkit-transform: translateY(0px);
-  transform: translateY(0px); }
+@-webkit-keyframes profile {
+  from {
+    opacity: 0.1;
+    -webkit-transform: translateY(-30px);
+    transform: translateY(-30px);
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px); }
+
+  to {
+    opacity: 1;
+    -webkit-filter: blur(0px);
+    -moz-filter: blur(0px);
+    -ms-filter: blur(0px);
+    filter: blur(0px);
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px); } }
+
+@-ms-keyframes profile {
+  from {
+    opacity: 0.1;
+    -webkit-transform: translateY(-30px);
+    transform: translateY(-30px);
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px); }
+
+  to {
+    opacity: 1;
+    -webkit-filter: blur(0px);
+    -moz-filter: blur(0px);
+    -ms-filter: blur(0px);
+    filter: blur(0px);
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px); } }
+
+@keyframes profile {
+  from {
+    opacity: 0.1;
+    -webkit-transform: translateY(-30px);
+    transform: translateY(-30px);
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px); }
+
+  to {
+    opacity: 1;
+    -webkit-filter: blur(0px);
+    -moz-filter: blur(0px);
+    -ms-filter: blur(0px);
+    filter: blur(0px);
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px); } }
 
 .profile {
   height: 300px;
@@ -20,17 +68,10 @@
   background-image: url('/images/me/profile.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  opacity: 0.1;
   box-shadow: 4px 4px rgba(174, 174, 174, 0.65);
-  -webkit-transform: translateY(-30px);
-  transform: translateY(-30px);
-  -webkit-filter: blur(5px);
-  -moz-filter: blur(5px);
-  -ms-filter: blur(5px);
-  filter: blur(5px);
-  transition-property: "transform, filter";
-  transition-duration: 2s;
-  transition-timing-function: ease-out; }
+  -webkit-animation: profile 2s ease-out 1;
+  -ms-animation: profile 2s ease-out 1;
+  animation: profile 2s ease-out 1; }
   .profile .border {
     position: relative;
     left: 5px;
@@ -40,6 +81,51 @@
     border: 4px dashed white;
     border-radius: 150px; }
 
+@-webkit-keyframes myself {
+  from {
+    opacity: 0.1;
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px); }
+
+  to {
+    opacity: 1;
+    -webkit-filter: none;
+    -moz-filter: none;
+    -ms-filter: none;
+    filter: none; } }
+
+@-ms-keyframes myself {
+  from {
+    opacity: 0.1;
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px); }
+
+  to {
+    opacity: 1;
+    -webkit-filter: none;
+    -moz-filter: none;
+    -ms-filter: none;
+    filter: none; } }
+
+@keyframes myself {
+  from {
+    opacity: 0.1;
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px); }
+
+  to {
+    opacity: 1;
+    -webkit-filter: none;
+    -moz-filter: none;
+    -ms-filter: none;
+    filter: none; } }
+
 .myself {
   font-family: Roboto, Helvetica, Arial, sans-serif;
   font-size: 1.5rem;
@@ -47,18 +133,14 @@
   line-height: 2em;
   max-width: 400px;
   max-width: 50vw;
-  transition-timing-function: ease;
-  transition-property: "filter";
-  transition-duration: 2s;
-  -webkit-filter: blur(10px);
-  -moz-filter: blur(10px);
-  -ms-filter: blur(10px);
-  filter: blur(10px); }
+  -webkit-animation: myself 2s ease 1;
+  -ms-animation: myself 2s ease 1;
+  animation: myself 2s ease 1; }
   .myself:after {
     content: ' ';
     display: block;
     height: 100px; }
-  .myself b {
+  .myself > b {
     font-weight: 400;
     font-family: Lobster;
     font-size: 2rem;
