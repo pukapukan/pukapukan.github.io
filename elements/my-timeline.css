@@ -52,10 +52,9 @@ my-font-awesome {
   position: relative; }
   .timeline-item:hover .timeline-content {
     border-color: #d0d0d0;
-    -webkit-transform: translate(-12px, -12px);
-    transform: translate(-12px, -12px);
-    -ms-box-shadow: 12px 12px 2px rgba(0, 0, 0, 0.1);
-    box-shadow: 12px 12px 2px rgba(0, 0, 0, 0.1); }
+    -webkit-transform: translate(-3px, -8px);
+            transform: translate(-3px, -8px);
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
   .timeline-item .timeline-content {
     width: 45%;
     background: #fff;
@@ -137,27 +136,6 @@ my-font-awesome {
   .timeline-period .wave {
     font-size: 1.1rem; }
 
-.btn {
-  padding: 5px 15px;
-  text-decoration: none;
-  background: transparent;
-  border: 2px solid #444444;
-  color: #444444;
-  display: inline-block;
-  position: relative;
-  text-transform: uppercase;
-  font-size: 12px;
-  border-radius: 5px;
-  transition: background 0.3s ease;
-  -ms-box-shadow: 2px 2px 0 #444444;
-  box-shadow: 2px 2px 0 #444444; }
-  .btn:hover {
-    box-shadow: none;
-    top: 2px;
-    left: 2px;
-    -ms-box-shadow: 2px 2px 0 transparent;
-    box-shadow: 2px 2px 0 transparent; }
-
 @media screen and (max-width: 1024px) {
   #timeline {
     margin: 30px;
@@ -188,8 +166,7 @@ my-font-awesome {
       width: 100%;
       float: none;
       -webkit-transform: translate(-12px, -12px);
-      transform: translate(-12px, -12px);
-      -ms-box-shadow: 12px 12px 2px rgba(0, 0, 0, 0.1);
+              transform: translate(-12px, -12px);
       box-shadow: 12px 12px 2px rgba(0, 0, 0, 0.1); }
       #timeline .timeline-item .timeline-content:before, #timeline .timeline-item .timeline-content[right]:before {
         left: 10%;
@@ -210,7 +187,7 @@ my-font-awesome {
       padding: 5px;
       margin: 0;
       -webkit-transform: translate(-12px, -12px);
-      transform: translate(-12px, -12px);
+              transform: translate(-12px, -12px);
       border-radius: 0px; }
       #timeline .timeline-period > div {
         display: inline-block; }
