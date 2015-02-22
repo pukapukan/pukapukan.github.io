@@ -40,3 +40,10 @@
   text-align: right; }
   .footer > * {
     line-height: 1.5rem; }
+
+.share-twitter {
+  width: 85px;
+  text-align: right;
+  margin-left: auto;
+  max-height: 25px;
+  overflow: hidden; }

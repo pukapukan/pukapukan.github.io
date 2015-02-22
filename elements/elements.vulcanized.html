@@ -1398,7 +1398,7 @@ Fired when a page transition completes.
 
     </core-animated-pages>
   </template>
-  <script>Polymer("my-projects",{page:0,items:[{project:"Crawl2Tweet",css:"crawl2tweet",theme:"white",stacks:["node","javascript"],url:"https://www.npmjs.com/package/crawl2tweet",repository:{provider:"Github",icon:"github",url:"https://github.com/pukapukan/Crawl2Tweet"},description:{"short":"Web crawler that tweets","long":"<div>Crawl2Tweet is a web-crawler + twitterbot that tweets new articles from web sites of your choice.  It can be easily hosted on free tiers of any PaaS and MongoDB on cloud."+'<div class="twitter"><div class="strong">Accounts powered by Crawl2Tweet:</div>'+"<ul>"+'<li><twitter-button type="follow" user="tlrgengineering" width="300" height="20"></twitter-button></li>'+'<li><twitter-button type="follow" user="invenlol" width="300" height="20"></twitter-button></li>'+'<li><twitter-button type="follow" user="androidpubbot" width="300" height="20"></twitter-button></li>'+"</ul></div>"}},{project:"passport-nate",css:"passport-nate",stacks:["node","javascript","OAuth"],url:"https://www.npmjs.com/package/passport-nate",repository:{provider:"Github",icon:"github",url:"https://github.com/pukapukan/passport-nate"},theme:"black",description:{"short":"Passport.js strategy for Nate/Cyworld ","long":"Passport is authentication middleware for Node.js.  passport-nate is a Node module that implements Passport.js strategy for Nate (Cyworld) using OAuth."}},{project:"FBench IDE",css:"fbench",stacks:["java","function block","XML"],url:"http://homepages.engineering.auckland.ac.nz/~vyatkin/fbench/index.html",repository:{provider:"SourceForge",icon:"code",url:"http://sourceforge.net/projects/oooneida-fbench/"},description:{"short":"Graphical interactive IDE built for IEC61499 Function Block","long":"<div>FBench IDE is an open-source graphical software tool for embedded automation components and systems based on IEC61499 standard.  The project originateds in OOONEIDA Workbench pioneered by Dr. James Christensen in 2005.</div>"+"<div>I actively contributed to its development between 2006 and 2009 as a part under guidance of Prof. Valeriy Vyatkin.</div>"}},{project:"Web Fundamentals",css:"fundamentals",theme:"black",description:{"short":"Translate Google's Web Fundamental into Korean"},url:"https://developers.google.com/web/fundamentals/",repository:{provider:"Github",icon:"github",url:"https://github.com/google/WebFundamentals"},description:{"short":"Translate 'monetization' section of Google's web fundamental to Korean","long":"<div>Web fundamentals is a web developer's bible published  and maintained by Google.  I contributed to the project by translating 'monetization' section into Korean.</div>"}}],selectedChip:null,transition:function(e,index,el){if(this.page===0&&e.target.templateInstance.model.item){this.selectedChip=e.target.templateInstance.model.item;this.$.description.innerHTML=this.selectedChip.description.long;this.$.cardHeader.classList.add("animate");this.page=1}else{this.page=0;this.$.cardHeader.classList.remove("animate")}},toLowerCase:function(val){return val.toString().toLowerCase()}});</script>
+  <script>Polymer("my-projects",{page:0,items:[{project:"Crawl2Tweet",css:"crawl2tweet",theme:"white",stacks:["node","javascript"],url:"https://www.npmjs.com/package/crawl2tweet",repository:{provider:"Github",icon:"github",url:"https://github.com/pukapukan/Crawl2Tweet"},description:{"short":"Web crawler that tweets","long":"<div>Crawl2Tweet is a web-crawler + twitterbot that tweets new articles from web sites of your choice.  It can be easily hosted on free tiers of any PaaS and MongoDB on cloud."+'<div class="twitter"><div class="strong">Accounts powered by Crawl2Tweet:</div>'+"<ul>"+'<li><twitter-button type="follow" user="tlrgengineering" width="300" height="20"></twitter-button></li>'+'<li><twitter-button type="follow" user="invenlol" width="300" height="20"></twitter-button></li>'+'<li><twitter-button type="follow" user="androidpubbot" width="300" height="20"></twitter-button></li>'+"</ul></div>"}},{project:"passport-nate",css:"passport-nate",stacks:["node","javascript","OAuth"],url:"https://www.npmjs.com/package/passport-nate",repository:{provider:"Github",icon:"github",url:"https://github.com/pukapukan/passport-nate"},theme:"black",description:{"short":"Passport.js strategy for Nate/Cyworld ","long":"Passport is authentication middleware for Node.js.  passport-nate is a Node module that implements Passport.js strategy for Nate (Cyworld) using OAuth."}},{project:"FBench IDE",css:"fbench",stacks:["java","function block","XML"],url:"http://homepages.engineering.auckland.ac.nz/~vyatkin/fbench/index.html",repository:{provider:"SourceForge",icon:"code",url:"http://sourceforge.net/projects/oooneida-fbench/"},description:{"short":"Graphical interactive IDE built for IEC61499 Function Block","long":"<div>FBench IDE is an open-source graphical software tool for embedded automation components and systems based on IEC61499 standard.  The project originateds in OOONEIDA Workbench pioneered by Dr. James Christensen in 2005.</div>"+"<div>I actively contributed to its development between 2006 and 2009 as a part under guidance of Prof. Valeriy Vyatkin.</div>"}},{project:"Web Fundamentals",css:"fundamentals",theme:"black",description:{"short":"Translate Google's Web Fundamental into Korean"},url:"https://developers.google.com/web/fundamentals/",repository:{provider:"Github",icon:"github",url:"https://github.com/google/WebFundamentals"},description:{"short":"Translate Google's web fundamental docs from English to Korean","long":"<div>Web fundamentals is a web developer's bible published and maintained by Google.  I contributed to the project by translating 'monetization' section into Korean.</div>"}}],selectedChip:null,transition:function(e,index,el){if(this.page===0&&e.target.templateInstance.model.item){this.selectedChip=e.target.templateInstance.model.item;this.$.description.innerHTML=this.selectedChip.description.long;this.$.cardHeader.classList.add("animate");this.page=1}else{this.page=0;this.$.cardHeader.classList.remove("animate")}},toLowerCase:function(val){return val.toString().toLowerCase()}});</script>
 </polymer-element>
 
 
@@ -1651,13 +1651,15 @@ __For the official Facebook documentation, please visit this [link](https://deve
 
 <polymer-element name="my-contact" noscript="" assetpath="">
   <template>
+    <style>.accounts /deep/ i.fa{vertical-align:middle}</style>
+
     <link href="/elements/my-contact.css" rel="stylesheet">
 
     <p>I am moving back to Seoul, South Korea in March 2015 and am looking for an exiciting company to work for/project to contribute to.</p>
     <p>Feel free to drop me a message or contact me over any of SNS accounts provided below to discuss about any career/freelance opportunity.</p>
 
     <div class="accounts">
-      <a href="mailto:jason.hyunjoon.park@gmail.com?body=Hi,%0D%0A%0D%0AI stumbled upon your profile on hyunjoonpark.com.  I would like to more about you.%0D%0A%0D%0ACheers" class="btn email">
+      <a href="mailto:jason.hyunjoon.park@gmail.com?subject=Greetings - Hyunjoonpark.com&amp;body=Hi,%0D%0A%0D%0AI stumbled upon your profile on hyunjoonpark.com.  I would like to more about you.%0D%0A%0D%0ACheers" class="btn email">
         <my-font-awesome attr="fa-envelope-o fa-2x"></my-font-awesome> jason.hyunjoon.park@gmail.com
       </a>
       <a href="//twitter.com/hyunjo_on" target="_blank" class="btn twitter">
@@ -1670,13 +1672,14 @@ __For the official Facebook documentation, please visit this [link](https://deve
 
     <section class="footer">
       <div class="share-twitter">
-        <twitter-button type="share" text="A simple developer portfolio on hyunjoonpark.com.  Built using #HTML5 #WebComponents #Polymer" user="hyunjo_on" href="hyunjoonpark.com" width="85"></twitter-button>
+        <twitter-button type="share" text="A simple developer portfolio on hyunjoonpark.com.  Built using HTML5/WebComponents+Polymer" user="hyunjo_on" href="hyunjoonpark.com" width="85"></twitter-button>
       </div>
       <div class="share-fb">
         <facebook-share type="html5" appid="782234185187617" pageurl="http://hyunjoonpark.com" layout="button_count"></facebook-share>
       </div>
       <div>
-        Site is owned and maintained by Jason Park
+        This site is owned and maintained by Jason Park.
+        Source code can be found on <a href="https://github.com/pukapukan/my-site" target="_blank">Github</a>.
       </div>
     </section>
   </template>
