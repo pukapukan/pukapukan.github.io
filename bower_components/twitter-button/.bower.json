@@ -25,6 +25,5 @@
   },
   "_source": "git://github.com/zenorocha/twitter-button.git",
   "_target": "~0.2.0",
-  "_originalSource": "twitter-button",
-  "_direct": true
+  "_originalSource": "twitter-button"
 }

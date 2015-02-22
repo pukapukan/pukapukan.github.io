@@ -14,15 +14,11 @@
   margin: 20px; }
   .chip.wide {
     width: 750px; }
-  .chip#certificates {
-    overflow: hidden; }
   .chip:hover .book {
     -webkit-transform: rotate3d(0.1, -0.2, 0.1, 35deg) scale(1.2);
             transform: rotate3d(0.1, -0.2, 0.1, 35deg) scale(1.2); }
   .chip:hover .cover {
-    opacity: 1;
-    -webkit-transform: translateY(0%);
-            transform: translateY(0%); }
+    opacity: 1; }
 
 .cover {
   position: absolute;
@@ -36,11 +32,7 @@
   border-radius: 3px;
   background: rgba(0, 0, 0, 0.88);
   opacity: 0;
-  -webkit-transform: translateY(-100%);
-          transform: translateY(-100%);
-  transition: all 0.5s ease;
-  transition-property: opacity, -webkit-transform;
-  transition-property: opacity, transform; }
+  transition: opacity 0.5s ease; }
   .cover > * {
     line-height: 3rem; }
     .cover > *:first-child {

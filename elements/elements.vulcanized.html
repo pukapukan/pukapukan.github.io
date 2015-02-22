@@ -204,6 +204,111 @@ on itself or any of its ancestors.
 <script>(function(){Polymer("core-toolbar",{justify:"",middleJustify:"",bottomJustify:"",justifyChanged:function(old){this.updateBarJustify(this.$.topBar,this.justify,old)},middleJustifyChanged:function(old){this.updateBarJustify(this.$.middleBar,this.middleJustify,old)},bottomJustifyChanged:function(old){this.updateBarJustify(this.$.bottomBar,this.bottomJustify,old)},updateBarJustify:function(bar,justify,old){if(old){bar.removeAttribute(this.toLayoutAttrName(old))}if(justify){bar.setAttribute(this.toLayoutAttrName(justify),"")}},toLayoutAttrName:function(value){return value==="between"?"justified":value+"-justified"}})})();</script>
 </polymer-element>
 
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+
+<!--
+    @license
+    Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+    This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+    The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+    The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+    Code distributed by Google as part of the polymer project is also
+    subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<script src="../bower_components/web-animations-js/web-animations-next-lite.min.js"></script>
+
+
+<!--
+@group Polymer Core Elements
+
+`core-animation` is a convenience element to use web animations with Polymer elements. It
+allows you to create a web animation declaratively. You can extend this class to create
+new types of animations and combine them with `core-animation-group`.
+
+Example to create animation to fade out an element over 500ms:
+
+    <core-animation id="fadeout" duration="500">
+      <core-animation-keyframe>
+        <core-animation-prop name="opacity" value="1"></core-animation-prop>
+      </core-animation-keyframe>
+      <core-animation-keyframe>
+        <core-animation-prop name="opacity" value="0"></core-animation-prop>
+      </core-animation-keyframe>
+    </core-animation>
+
+    <div id="el">Fade me out</div>
+
+    <script>
+      var animation = document.getElementById('fadeout');
+      animation.target = document.getElementById('el');
+      animation.play();
+    </script>
+
+Or do the same imperatively:
+
+    var animation = new CoreAnimation();
+    animation.duration = 500;
+    animation.keyframes = [
+      {opacity: 1},
+      {opacity: 0}
+    ];
+    animation.target = document.getElementById('el');
+    animation.play();
+
+You can also provide a javascript function instead of keyframes to the animation. This
+behaves essentially the same as `requestAnimationFrame`:
+
+    var animation = new CoreAnimation();
+    animation.customEffect = function(timeFraction, target, animation) {
+      // do something custom
+    };
+    animation.play();
+
+Elements that are targets to a `core-animation` are given the `core-animation-target` class.
+
+@element core-animation
+@status beta
+@homepage github.io
+-->
+<polymer-element name="core-animation" constructor="CoreAnimation" attributes="target keyframes customEffect composite duration fill easing iterationStart iterationCount delay direction autoplay targetSelector" assetpath="../bower_components/core-animation/">
+  <script>(function(){function toNumber(value,allowInfinity){return allowInfinity&&value==="Infinity"?Number.POSITIVE_INFINITY:Number(value)}Polymer("core-animation",{publish:{target:{value:null,reflect:true},keyframes:{value:null,reflect:true},customEffect:{value:null,reflect:true},composite:{value:"replace",reflect:true},duration:{value:"auto",reflect:true},fill:{value:"auto",reflect:true},easing:{value:"linear",reflect:true},delay:{value:0,reflect:true},endDelay:{value:0,reflect:true},iterations:{value:1,reflect:true},iterationStart:{value:0,reflect:true},iterationComposite:{value:"replace",reflect:true},direction:{value:"normal",reflect:true},playbackRate:{value:1,reflect:true},autoplay:{value:false,reflect:true}},animation:false,observe:{target:"apply",keyframes:"apply",customEffect:"apply",composite:"apply",duration:"apply",fill:"apply",easing:"apply",iterations:"apply",iterationStart:"apply",iterationComposite:"apply",delay:"apply",endDelay:"apply",direction:"apply",playbackRate:"apply",autoplay:"apply"},ready:function(){this.apply()},play:function(){this.apply();if(this.animation&&!this.autoplay){this.player=document.timeline.play(this.animation);this.player.onfinish=this.animationFinishHandler.bind(this);return this.player}},cancel:function(){if(this.player){this.player.cancel()}},finish:function(){if(this.player){this.player.finish()}},pause:function(){if(this.player){this.player.pause()}},hasTarget:function(){return this.target!==null},apply:function(){this.animation=this.makeAnimation();if(this.autoplay&&this.animation){this.play()}return this.animation},makeSingleAnimation:function(target){target.classList.add("core-animation-target");return new Animation(target,this.animationEffect,this.timingProps)},makeAnimation:function(){if(!this.target){return null}var animation;if(Array.isArray(this.target)){var array=[];this.target.forEach(function(t){array.push(this.makeSingleAnimation(t))}.bind(this));animation=new AnimationGroup(array)}else{animation=this.makeSingleAnimation(this.target)}return animation},animationChanged:function(){this.fire("core-animation-change",this)},targetChanged:function(old){if(old){old.classList.remove("core-animation-target")}},get timingProps(){var props={};var timing={delay:{isNumber:true},endDelay:{isNumber:true},fill:{},iterationStart:{isNumber:true},iterations:{isNumber:true,allowInfinity:true},duration:{isNumber:true},playbackRate:{isNumber:true},direction:{},easing:{}};for(t in timing){if(this[t]!==null){var name=timing[t].property||t;props[name]=timing[t].isNumber&&this[t]!=="auto"?toNumber(this[t],timing[t].allowInfinity):this[t]}}return props},get animationEffect(){var props={};var frames=[];var effect;if(this.keyframes){frames=this.keyframes}else if(!this.customEffect){var children=this.querySelectorAll("core-animation-keyframe");if(children.length===0&&this.shadowRoot){children=this.shadowRoot.querySelectorAll("core-animation-keyframe")}Array.prototype.forEach.call(children,function(c){frames.push(c.properties)})}if(this.customEffect){effect=this.customEffect}else{effect=frames}return effect},animationFinishHandler:function(){this.fire("core-animation-finish")}})})();</script>
+</polymer-element>
+
+<!--
+`core-animation-keyframe` represents a keyframe in a `core-animation`. Use them as children of
+`core-animation` elements to create web animations declaratively. If the `offset` property is
+unset, the keyframes will be distributed evenly within the animation duration. Use
+`core-animation-prop` elements as children of this element to specify the CSS properties for
+the animation.
+
+@element core-animation-keyframe
+@status beta
+@homepage github.io
+-->
+<polymer-element name="core-animation-keyframe" attributes="offset" assetpath="../bower_components/core-animation/">
+  <script>Polymer("core-animation-keyframe",{publish:{offset:{value:null,reflect:true}},get properties(){var props={};var children=this.querySelectorAll("core-animation-prop");Array.prototype.forEach.call(children,function(c){props[c.name]=c.value});if(this.offset!==null){props.offset=this.offset}return props}});</script>
+</polymer-element>
+
+<!--
+`core-animation-prop` represents a CSS property and value pair to use with
+`core-animation-keyframe`.
+
+@element core-animation-prop
+@status beta
+@homepage github.io
+-->
+<polymer-element name="core-animation-prop" attributes="name value" assetpath="../bower_components/core-animation/">
+  <script>Polymer("core-animation-prop",{publish:{name:{value:"",reflect:true},value:{value:"",reflect:true}}});</script>
+</polymer-element>
+
 
 
 <polymer-element name="my-font-awesome" attributes="attr" noscript="" assetpath="">
@@ -217,6 +322,7 @@ on itself or any of its ancestors.
 
 
 
+
 <polymer-element name="my-self" noscript="" assetpath="">
   <template>
     <link href="/elements/my-self.css" rel="stylesheet">
@@ -224,8 +330,9 @@ on itself or any of its ancestors.
     <div id="about" class="about">
       <div class="space"></div>
       <div class="profile z-depth-2">
-        <div class="border"></div>
+        <!-- <div class="border"></div> -->
       </div>
+
       <div class="myself" auto-vertical="">
         Hi, my name is <b>Jason</b> (a.k.a. Hyunjoon) and I'm a <b>Korea-born Kiwi</b> + <b>.NET/JS geek</b>.  As a software engineer, I value <b>software craftmanship</b> and believe in harmony and synergy that comes from a great team, an awesome culture and a seasoned leader.
       </div>
@@ -1201,8 +1308,6 @@ Fired when a page transition completes.
 
 </polymer-element>
 
-
-
 <!-- Import Polymer -->
 
 
@@ -1232,6 +1337,8 @@ Fired when a page transition completes.
     <script>Polymer("twitter-button",{text:"Custom Elements rocks!",href:"http://customelements.io",user:"zenorocha",hashtag:"customelements",height:"25",width:"115",type:"share"});</script>
 
 </polymer-element>
+
+
 
 <polymer-element name="my-projects" assetpath="">
   <template>
@@ -1372,7 +1479,7 @@ Fired when a page transition completes.
       </template>
     </div>
   </template>
-  <script>Polymer("my-timeline",{items:[{company:{name:"asiarooms",url:"http://www.asiarooms.com"},from:"2014",to:"now",role:"Fullstack software engineer",duties:"Built a web application for customer management with multi-brand capability.",sites:[{name:"laterooms.com",url:"myaccount.laterooms.com"},{name:"asiarooms.com",url:"myaccount.asiarooms.com"}],stacks:["node","express","kraken","sass","rabbit MQ","git"],presentations:[{text:"Brownbag session on Web Components",url:"http://www.slideshare.net/hyunjoonpark1/brownbag-on-web-components"}]},{company:{name:"avanade",url:"http://www.avanade.com"},from:"2012",to:"2014",role:"IT consultant",projects:[{client:"Inland Revenue Authority of Singapore",role:"Team lead",duties:"Led a team of 10 devs to develop online tax filing system for corporates from ground up.",stacks:["asp.net","jQuery","html5","tfs"]},{client:"Singapore Pools",role:"Lead developer",duties:"Revamped 'Sweep Management System' and 'Sweep Validation System' written in Oracle into a centralised enterprise web application.",stacks:["asp.net mvc","jQuery","kendo UI","tfs","mssql"]},{client:"Inland Revenue Authority of Singapore",role:"Team lead",duties:"Integrated IRAS system with InfoComm Development of Singapore (IDA)'s web-portal service, OneInBox.  This enabled tax payers to collect tax related letters online services.",stacks:[".net","ibm WebSphere","db2","mssql"]}],achievements:["Singapore's most valueable employee award (July 2013)","Outstanding performance award (March 2013)"],presentations:[{text:"Brownbag session on node.js",url:"http://www.slideshare.net/hyunjoonpark1/brown-bag-session-on-node"}]},{company:{name:"thomsons",url:"http://www.thomsons.com"},from:"2010",to:"2012",role:"Fullstack software engineer",duties:"Designed and delivered new features to a globally served business solution.  Key achievements are including but not limited to converting ASP.NET webform application to HTML5 web application using KnockOut JS and adopting Service Oriented Architecture to .NET applications",stacks:[".net","unity framework","knockout.js","mssql"],achievements:["Maximising potential award (February 2011)","Outstanding performance award (September 2011)"]}],isOdd:function(num){return num%2===1}});</script>
+  <script>Polymer("my-timeline",{items:[{company:{name:"asiarooms",url:"http://www.asiarooms.com"},from:"2014",to:"now",role:"Fullstack software engineer",duties:"Built a web application for customer management with multi-brand capability.",sites:[{name:"laterooms.com",url:"myaccount.laterooms.com"},{name:"asiarooms.com",url:"myaccount.asiarooms.com"}],stacks:["node","express","kraken","sass","rabbit MQ","git"],presentations:[{text:"Brownbag session on Web Components",url:"http://www.slideshare.net/hyunjoonpark1/brownbag-on-web-components"}]},{company:{name:"avanade",url:"http://www.avanade.com"},from:"2012",to:"2014",role:"IT consultant",projects:[{client:"Inland Revenue Authority of Singapore",role:"Team lead",duties:"Led a team of 10 devs to develop online tax filing system for corporates from ground up.",stacks:["asp.net","jQuery","html5","tfs"]},{client:"Singapore Pools",role:"Lead developer",duties:"Revamped 'Sweep Management System' and 'Sweep Validation System' written in Oracle into a centralised enterprise web application.",stacks:["asp.net mvc","jQuery","kendo UI","tfs","mssql"]},{client:"Inland Revenue Authority of Singapore",role:"Team lead",duties:"Integrated IRAS system with InfoComm Development of Singapore (IDA)'s web-portal service, OneInBox.  This enabled tax payers to collect tax related letters online services.",stacks:[".net","ibm WebSphere","db2","mssql"]}],achievements:["Singapore's most valuable employee award (July 2013)","Outstanding performance award (March 2013)"],presentations:[{text:"Brownbag session on node.js",url:"http://www.slideshare.net/hyunjoonpark1/brown-bag-session-on-node"}]},{company:{name:"thomsons",url:"http://www.thomsons.com"},from:"2010",to:"2012",role:"Fullstack software engineer",duties:"Designed and delivered new features to a globally served business solution.  Key achievements are including but not limited to converting ASP.NET webform application to HTML5 web application using KnockOut JS and adopting Service Oriented Architecture to .NET applications",stacks:[".net","unity framework","knockout.js","mssql"],achievements:["Maximising potential award (February 2011)","Outstanding performance award (September 2011)"]}],isOdd:function(num){return!!(num%2)}});</script>
 </polymer-element>
 
 
@@ -1413,7 +1520,7 @@ Fired when a page transition completes.
         <div>2008 - 2009</div>
         <div class="divider"><my-font-awesome attr="fa-star"></my-font-awesome></div>
         <div class="achievements">
-          <div>Thesis supervisor: Professor Valeriy Vyatkin</div>
+          <div>Supervisor: Professor Valeriy Vyatkin</div>
         </div>
       </div>
       <!-- Book rendering from http://tympanus.net/Development/3DBookShowcase/index.html -->
@@ -1479,21 +1586,116 @@ Fired when a page transition completes.
 </polymer-element>
 
 
+<!--
+	@license
+	Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+	This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+	The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+	The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+	Code distributed by Google as part of the polymer project is also
+	subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+
+<!--
+A Polymer Component for sharing a URL on Facebook.
+
+The Share button lets people add a personalized message to links before sharing on their timeline, in groups, or to their friends via a Facebook Message.
+
+__For the official Facebook documentation, please visit this [link](https://developers.facebook.com/docs/plugins/share-button/).__
+
+
+******
+
+### Default Example
+
+	<facebook-share></facebook-share>
+
+### Full Example
+
+	<facebook-share
+		type="html5"
+		appid="266086456917866"
+		pageurl="https://developers.facebook.com/docs/plugins/"
+		layout="icon_link">
+	</facebook-share>
+
+@element facebook-share
+@blurb A Polymer Component for sharing a URL on Facebook.
+@homepage http://kunalnagar.github.io/facebook-share
+
+******
+
+-->
+<polymer-element name="facebook-share" attributes="type appid pageurl layout" assetpath="../bower_components/facebook-share/">
+    <template>
+        <!-- HTML5 -->
+        <div id="fbsharehtml5">
+            <div class="fb-share-button" data-href="{{ pageurl }}" data-layout="{{ layout }}"></div>
+        </div>
+        <!-- XFBML -->
+        <div id="fbsharexfbml">
+            <fb:share-button href="{{ pageurl }}" layout="{{ layout }}"></fb:share-button>
+        </div>
+        <!-- IFRAME -->
+        <div id="fbshareiframe">
+            <iframe src="//www.facebook.com/plugins/share_button.php?href={{ pageurl }}&amp;
+        		layout={{ layout }}" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowtransparency="true"></iframe>
+        </div>
+    </template>
+    <script>Polymer("facebook-share",{type:"html5",appid:"266086456917866",pageurl:"https://developers.facebook.com/docs/plugins/",layout:"icon_link",renderFacebookShare:function(){(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="//connect.facebook.net/en_US/sdk.js";fjs.parentNode.insertBefore(js,fjs)})(document,"script","facebook-jssdk");switch(this.type){case"html5":console.log("html5");var container=this.$.fbsharehtml5,that=this;window.fbAsyncInit=function(){FB.init({appId:that.appid,xfbml:true,version:"v2.1"});FB.XFBML.parse(container)};break;case"xfbml":console.log("xfbml");var container=this.$.fbsharexfbml,that=this;window.fbAsyncInit=function(){FB.init({appId:that.appid,xfbml:true,version:"v2.1"});FB.XFBML.parse(container)};break;case"iframe":this.$.fbshareiframe.style.display="block";break}},ready:function(){this.$.fbshareiframe.style.display="none";this.async(this.renderFacebookShare,null,1e3)}});</script>
+</polymer-element>
+
+
+
+
+<polymer-element name="my-contact" noscript="" assetpath="">
+  <template>
+    <link href="/elements/my-contact.css" rel="stylesheet">
+
+    <p>I am moving back to Seoul, South Korea in March 2015 and am looking for an exiciting company to work for/project to contribute to.</p>
+    <p>Feel free to drop me a message or contact me over any of SNS accounts provided below to discuss about any career/freelance opportunity.</p>
+
+    <div class="accounts">
+      <a href="mailto:jason.hyunjoon.park@gmail.com?body=Hi,%0D%0A%0D%0AI stumbled upon your profile on hyunjoonpark.com.  I would like to more about you.%0D%0A%0D%0ACheers" class="btn email">
+        <my-font-awesome attr="fa-envelope-o fa-2x"></my-font-awesome> jason.hyunjoon.park@gmail.com
+      </a>
+      <a href="//twitter.com/hyunjo_on" target="_blank" class="btn twitter">
+        <my-font-awesome attr="fa-twitter fa-2x"></my-font-awesome> hyunjo_On
+      </a>
+      <a href="//linkedin.com/in/jasonhyunjoonpark" target="_blank" class="btn linkedin">
+        <my-font-awesome attr="fa-linkedin-square fa-2x"></my-font-awesome> Jason Hyunjoon Park
+      </a>
+    </div>
+
+    <section class="footer">
+      <div class="share-twitter">
+        <twitter-button type="share" text="A simple developer portfolio on hyunjoonpark.com.  Built using #HTML5 #WebComponents #Polymer" user="hyunjo_on" href="hyunjoonpark.com" width="85"></twitter-button>
+      </div>
+      <div class="share-fb">
+        <facebook-share type="html5" appid="782234185187617" pageurl="http://hyunjoonpark.com" layout="button_count"></facebook-share>
+      </div>
+      <div>
+        Site is owned and maintained by Jason Park
+      </div>
+    </section>
+  </template>
+
+</polymer-element>
+
 <polymer-element name="my-app" assetpath="">
   <template>
     <link href="/elements/my-app.css" rel="stylesheet">
-    <style shim-shadowdom="">:host /deep/ h1,h2,h3,h4{font-weight:300;font-size:4rem;margin:1em 0}:host /deep/ section[page]{min-height:100vh}:host /deep/ .z-depth-1{box-shadow:0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12)}:host /deep/ .z-depth-2{box-shadow:0 8px 17px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19)}:host /deep/ .z-depth-3{box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19)}:host /deep/ .z-depth-4{box-shadow:0 27px 24px 0 rgba(0,0,0,.2),0 40px 77px 0 rgba(0,0,0,.22)}</style>
-
+    <style shim-shadowdom="">:host /deep/ h1,h2,h3,h4{font-weight:300;font-size:4rem;margin:1em 0}:host /deep/ section[page]{min-height:100vh}:host /deep/ .z-depth-1{transition:box-shadow .5s ease;will-change:box-shadow;box-shadow:0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12)}:host /deep/ .z-depth-1:hover{box-shadow:0 8px 17px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19)}:host /deep/ .z-depth-2{box-shadow:0 8px 17px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19)}</style>
+    <core-animation id="animation" duration="500"></core-animation>
     <core-scroll-header-panel id="headerPanel" condenses="true" keepcondensedheader="true" on-core-header-transform="{{onHeaderTransform}}">
       <core-toolbar id="mainheader" class="tall layout">
         <div class="top">
           <a href="//medium.com/@grunty" target="_blank"><my-font-awesome attr="fa-medium"></my-font-awesome></a>
           <a href="//github.com/pukapukan" target="_blank"><my-font-awesome attr="fa-github"></my-font-awesome></a>
-          <a href="//www.linkedin.com/in/jasonhyunjoonpark" target="_blank"><my-font-awesome attr="fa-linkedin"></my-font-awesome></a>
         </div>
 
         <div class="indent"></div>
-        <!-- <div class="middle indent">few things about</div> -->
         <h1 id="title" class="bottom title indent">hyunj<span>o_O</span>n</h1>
       </core-toolbar>
 
@@ -1509,7 +1711,7 @@ Fired when a page transition completes.
         <my-projects></my-projects>
       </section>
 
-      <section page="" class="career section">
+      <section class="career section">
         <h2>Career journey</h2>
         <my-timeline></my-timeline>
       </section>
@@ -1518,8 +1720,13 @@ Fired when a page transition completes.
         <h2 id="academicHeader" class="section-header">Academic achievements</h2>
         <my-academics></my-academics>
       </section>
+
+      <section page="" class="section contact">
+        <h2>Contact</h2>
+        <my-contact></my-contact>
+      </section>
     </core-scroll-header-panel>
   </template>
-  <script>(function(){var titleStyle;var scale;Polymer("my-app",{ready:function(){titleStyle=this.$.title.style},onHeaderTransform:function(event,detail,sender){var m=detail.height-detail.condensedHeight;var newScale=Math.max(.5,(m-detail.y)/(m/.5)+.5);if(scale!=newScale){scale=newScale;titleStyle.transform=titleStyle.webkitTransform=titleStyle.mozTransform=titleStyle.msTransform="scale("+scale+")"}}})})();</script>
+  <script>(function(){var titleStyle;Polymer("my-app",{ready:function(){titleStyle=this.$.title.style},onHeaderTransform:function(event,detail,sender){var m=detail.height-detail.condensedHeight;var scale=Math.max(.5,(m-detail.y)/(m/.5)+.5);titleStyle.transform=titleStyle.webkitTransform=titleStyle.mozTransform=titleStyle.msTransform="scale("+scale+")"}})})();</script>
 </polymer-element>
 </div>

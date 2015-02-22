@@ -185,3 +185,7 @@ html, body {
 
 .content {
   padding: 100px; }
+
+@media only screen and (max-width: 480px) {
+  html {
+    font-size: 14px; } }
