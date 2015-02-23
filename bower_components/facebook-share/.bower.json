@@ -33,6 +33,5 @@
   },
   "_source": "git://github.com/kunalnagar/facebook-share.git",
   "_target": "~1.0.0",
-  "_originalSource": "facebook-share",
-  "_direct": true
+  "_originalSource": "facebook-share"
 }

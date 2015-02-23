@@ -225,3 +225,23 @@
   .book .top {
     -webkit-transform: rotate3d(1, 0, 0, 90deg);
             transform: rotate3d(1, 0, 0, 90deg); }
+
+@media only screen and (max-width: 1024px) {
+  .chip.wide {
+    width: 450px; }
+  .books {
+    display: block;
+    margin-left: auto;
+    margin-right: auto; } }
+
+@media only screen and (max-width: 480px) {
+  .chip {
+    max-width: 85%;
+    padding: 5px;
+    margin: 15px 5px; }
+    .chip.wide {
+      width: 85%; }
+  .description {
+    width: initial; }
+  .books {
+    display: none; } }
