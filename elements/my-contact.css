@@ -19,17 +19,15 @@
   .btn, .btn:active, .btn:visited {
     color: black;
     text-decoration: none; }
-  .btn my-font-awesome {
+  .btn .fa {
     margin-right: 5px;
     vertical-align: top; }
 
-.email my-font-awesome {
+.email .fa {
   color: #999999; }
-
-.twitter my-font-awesome {
+.twitter .fa {
   color: #0084b4; }
-
-.linkedin my-font-awesome {
+.linkedin .fa {
   color: #007bb6; }
 
 .footer {

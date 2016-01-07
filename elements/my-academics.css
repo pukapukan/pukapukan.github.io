@@ -78,19 +78,6 @@
     line-height: 2rem; }
   .description .divider {
     line-height: 4rem; }
-    .description .divider my-font-awesome {
-      position: relative; }
-      .description .divider my-font-awesome:before, .description .divider my-font-awesome:after {
-        content: ' ';
-        position: absolute;
-        width: 75px;
-        top: 0.5rem;
-        height: 2px;
-        background: black; }
-      .description .divider my-font-awesome:before {
-        left: -100px; }
-      .description .divider my-font-awesome:after {
-        left: 40px; }
   .description .achievements > *:not(:last-child) {
     margin-bottom: 0.5rem; }
 
