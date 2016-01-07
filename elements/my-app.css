@@ -13,17 +13,19 @@
 paper-scroll-header-panel {
   height: 100%; }
 
-paper-toolbar#mainheader {
+paper-toolbar {
   font-size: 1.3rem;
   color: white;
   fill: white;
   background-color: transparent; }
-  paper-toolbar#mainheader a {
+  paper-toolbar a {
     display: inline-block;
     margin: 0 4px; }
-  paper-toolbar#mainheader .top {
-    margin-left: auto;
-    margin-right: 56px; }
+  paper-toolbar .top {
+    margin-left: auto; }
+
+paper-toolbar::shadow .toolbar-tools {
+  margin: 0 56px; }
 
 paper-scroll-header-panel::shadow #headerBg {
   background-image: url(/images/background/nz_national_park.jpg); }
@@ -41,6 +43,7 @@ paper-scroll-header-panel::shadow #mainContainer {
     overflow: hidden; }
 
 .title {
+  margin-left: 0 !important;
   font-size: 3rem !important;
   vertical-align: middle;
   will-change: transform;
@@ -91,13 +94,13 @@ paper-toolbar a {
   z-index: 10; }
 
 @media only screen and (max-width: 1024px) {
+  paper-toolbar::shadow .toolbar-tools {
+    margin: 0; }
   paper-toolbar .indent {
     margin-left: 4px !important; }
   section {
     padding: 1px 20px 1px 20px !important; } }
 
 @media only screen and (max-width: 480px) {
-  paper-toolbar .indent {
-    margin-left: 4px !important; }
   section {
     padding: 1px 12px 1px 12px !important; } }
